@@ -6,8 +6,8 @@ makeCacheMatrix <- function(x = matrix()) {
         im <<- NULL
     }
     get <- function() x
-    setInverseMatrix <- function(inverseMatrix) im <<- inverseMatrix
-    getInverseMatrix <- function() im
+    setInverseMatrix <- function(inverseMatrix) im <<- inverseMatrix # sets inverse matrix in the im variable from the object
+    getInverseMatrix <- function() im 
     list(set = set, get = get,
          setInverseMatrix = setInverseMatrix,
          getInverseMatrix = getInverseMatrix)
@@ -15,6 +15,7 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## Caches the inverse of a matrix
+## x parameter is a "makeCacheMatrix" special object instance
 cacheSolve <- function(x, ...) {
     im <- x$getInverseMatrix()
     if(!is.null(im)) {
@@ -22,8 +23,8 @@ cacheSolve <- function(x, ...) {
         return(im)
     }
     data <- x$get()
-    im <- solve(data, ...)
-    x$setInverseMatrix(im)
+    im <- solve(data, ...) #solves the inverse of the matrix that gets from makeCacheMatrix object
+    x$setInverseMatrix(im) #and sets it for 
     im
 }
 
